@@ -22,29 +22,51 @@
         <button onclick=guessNum(8)>8</button>
         <button onclick=guessNum(9)>9</button>
         <button onclick=guessNum(10)>10</button>
+    </div><br>
+    <div>
+        <button onclick=startOver()>Начать сначала</button>
+    </div>
+    <div><br>
+        <button onclick=printResult()>Узнать статистику результатов игры</button>
     </div>
 
     <script>
-        const secretNum = Math.ceil(Math.random() * 10);
+        let secretNum = Math.ceil(Math.random() * 10);
         
         let tries = 0;
         let isSuccess = false;
+
+        let winning = 0;
+        let losing = 0;
+
+        function printResult(numWinOrLoss) {
+            alert(`Побед: ${winning}\nПроигрышей: ${losing}`);
+        }
         
         function guessNum(num) {
             tries++;
             if (isSuccess === false) {
+                console.log(secretNum);
                 if ( secretNum === num && tries <= 5 ) {
                     isSuccess = true;
-                    return alert(`Поздравляем! Вы угадали c ${tries} попытки! Это число ${secretNum}`);
+                    winning++;
+                    return alert(`Поздравляем! Вы угадали c ${tries} попытки! Это число ${secretNum}.\nПобед: ${winning}\nПроигрышей:${losing}`);
                 } else if (tries > 5) {
-                    return alert(`Игра окончена. Вы израсходовали все попытки! \n\nОбновите страницу, чтобы начать игру заново.`);
+                    if (tries === 6) losing++;
+                    return alert(`Игра окончена. Вы израсходовали все попытки!\nПобед:${winning}\nПроигрышей: ${losing}\n\nНажмите на кнопку "Начать сначала", чтобы начать игру заново.`);
                 } else {
                     let clue = secretNum > num ? ` больше ${num}` : ` меньше ${num}`;
                     alert(`Попытка ${tries} : Вы не угадали! \nПодсказка : Это число` + clue);
                 } 
             } else {
-                alert(`Игра окончена. Вы уже угадали правильное число.\nЕсли хотите поиграть снова, обновите страницу, и игра начнется заново.`)
+                alert(`Игра окончена. Вы уже угадали правильное число.\nЕсли хотите поиграть снова, нажмите на кнопку "Начать сначала", и игра начнется заново.`)
             }
+        }
+        function startOver() {
+            tries = 0;
+            secretNum = Math.ceil(Math.random() * 10);
+            isSuccess = false;
+            console.log(secretNum);
         }
     </script>
 </body>
