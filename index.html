@@ -46,7 +46,6 @@
         function guessNum(num) {
             tries++;
             if (isSuccess === false) {
-                console.log(secretNum);
                 if ( secretNum === num && tries <= 5 ) {
                     isSuccess = true;
                     winning++;
@@ -66,7 +65,6 @@
             tries = 0;
             secretNum = Math.ceil(Math.random() * 10);
             isSuccess = false;
-            console.log(secretNum);
         }
     </script>
 </body>
